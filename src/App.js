@@ -1,25 +1,68 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState, useEffect } from 'react'
+import './App.css'
+import { BrowserRouter as Router } from "react-router-dom"
+import Header from './components/Header/Header'
+import Sidebar from './components/Sidebar/Sidebar'
+import Main from './components/Main/Main'
+import shipmentsJSON from './shipments.json'
 
-function App() {
+const App = () => {
+  const [shipments, setShipments] = useState([])
+  const [searchValue, setSearchValue] = useState()
+  const [searchedResult, setSearchedResult] = useState()
+  const [clickedCompany, setClickedCompany] = useState()
+
+  useEffect(() => {
+    shipmentsJSON.map((item) => {
+      if (localStorage.getItem(item.id)) {
+        const localItem = JSON.parse(localStorage.getItem(item.id))
+        setShipments(oldArray => [...oldArray, localItem])
+      }
+    })
+  }, [])
+
+  useEffect(() => {
+    filterSearched()
+  }, [searchValue])
+
+  useEffect(() => {
+    setSearchedResult(shipments)
+  }, [shipments])
+
+  const load = () => {
+    setShipments(shipmentsJSON)
+  }
+
+  const filterSearched = () => {
+    if (shipments) {
+      const filteredData = shipments.filter((item) => {
+        if (item.name.toLowerCase().includes(searchValue)) {
+          return item
+        }
+      })
+      setSearchedResult(filteredData)
+    }
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <Router>
+        <Header 
+          load={load} 
+          shipments={shipments} 
+          search={setSearchValue} 
+          searchedResult={searchedResult}
+        />
+        <div className='container'>
+          <Sidebar 
+            shipments={searchedResult} 
+            activeCompany={setClickedCompany}
+          />
+          <Main company={clickedCompany} />
+        </div>
+      </Router>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App

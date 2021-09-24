@@ -1,0 +1,43 @@
+.header {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    background-color: rgb(241, 241, 241);
+}
+
+.header__icon {
+    text-decoration: none;
+    color: inherit;
+    margin-left: 20px;
+}
+
+.header__center {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    margin: 10px;
+    height: 30px;
+    background-color: #ffffff;
+    border: 1px solid lightgray;
+    border-radius: 999px;
+}
+
+.header__center > input {
+    font-family: inherit !important;
+    border: none;
+    font-size: 16px;
+    padding: 10px;
+    outline-width: 0;
+}
+
+.header__right {
+    margin-right: 60px;
+}
+
+.header__btn {
+    font-family: inherit !important;
+    margin-right: 20px !important;
+    margin: 10px !important;
+    background-color: #ffffff !important;
+}

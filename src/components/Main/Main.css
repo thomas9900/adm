@@ -1,0 +1,21 @@
+.main {
+    padding: 0 30px;
+}
+
+.main__h1 {
+    margin-bottom: 0;
+}
+
+.main__email {
+    text-decoration: underline;
+    margin-top: 0;
+}
+
+.main__input {
+    font-family: inherit !important;
+    width: 250px !important;
+}
+
+.main__cargoAmount {
+    padding: 30px 0;
+}
